@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Конверт из Петербурга</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;600;800&family=Archivo:wght@900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4EF;      /* бумага офф-уайт */
+    --ink:#141311;        /* чернильный чёрный */
+    --kraft:#C7B49A;      /* крафт */
+    --grey:#8F8B84;       /* серый штемпель */
+    --line:rgba(20,19,17,.14);
+    --mono:'Martian Mono',monospace;
+    --display:'Archivo',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition:none!important;}}
+  body{background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:14px;line-height:1.65;font-weight:400;}
+  a{color:inherit;text-decoration:none;}
+  .cap{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);}
+  .cap b{color:var(--ink);font-weight:600;}
+
+  /* ── header ── */
+  header{display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline;padding:22px 28px;position:sticky;top:0;background:var(--paper);z-index:10;border-bottom:1px solid transparent;}
+  header .brand{font-weight:800;font-size:13px;letter-spacing:.04em;}
+  header .time{justify-self:center;font-size:13px;color:var(--grey);}
+  nav{justify-self:end;display:flex;gap:34px;font-size:13px;}
+  nav a{position:relative;}
+  nav a::after{content:',';color:var(--grey);}
+  nav a:last-child::after{content:'';}
+  nav a:hover{text-decoration:underline;text-underline-offset:4px;}
+
+  /* ── hero ── */
+  .hero{position:relative;padding:56px 28px 0;min-height:92vh;overflow:hidden;}
+  .manifesto{max-width:340px;font-size:14px;line-height:1.7;}
+  .hero-photo{position:absolute;top:110px;left:34%;width:46vw;max-width:760px;aspect-ratio:16/10;
+      box-shadow:0 1px 0 var(--line);z-index:2;overflow:hidden;}
+  .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-photo .tag{position:absolute;top:-34px;left:0;}
+  .hero-photo .inside{position:absolute;bottom:16px;left:16px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:rgba(20,19,17,.55);}
+  .hero-word{position:absolute;bottom:-0.28em;left:-0.03em;font-family:var(--display);font-weight:900;font-size:19.5vw;line-height:.8;letter-spacing:-.035em;text-transform:lowercase;user-select:none;white-space:nowrap;}
+  .hero .cap.left-note{position:absolute;left:28px;top:340px;max-width:220px;text-transform:none;letter-spacing:.02em;line-height:1.7;}
+
+  /* ── sections ── */
+  section{padding:110px 28px;border-top:1px solid var(--line);}
+  .sec-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:52px;}
+  h2{font-size:26px;font-weight:600;letter-spacing:-.01em;}
+
+  /* catalog editorial grid */
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;}
+  .card{position:relative;}
+  .card .ph{aspect-ratio:4/5;background:var(--ph,#E4DDCE);transition:transform .35s ease;background-size:cover;background-position:center;}
+  .card:hover .ph{transform:translateY(-6px);}
+  .card:hover{outline:1px solid var(--line);outline-offset:12px;}
+  .card .meta{display:flex;justify-content:space-between;margin-top:12px;font-size:12px;}
+  .card .meta span:last-child{color:var(--grey);}
+  .c1{grid-column:1/5;} .c2{grid-column:6/9;margin-top:90px;} .c3{grid-column:9/12;} .c4{grid-column:2/6;margin-top:60px;}
+  .c1 .ph{background-image:url(konverty.jpg);}
+  .c2 .ph{background-image:url(girlyandy.jpg);}
+  .c3 .ph{background-image:url(kalendar.jpg);}
+  .c4 .ph{background-image:url(sert.jpg);}
+
+  /* flow */
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:none;}
+  .step{border-top:1px solid var(--ink);padding-top:18px;}
+  .step .n{font-size:11px;letter-spacing:.09em;color:var(--grey);display:block;margin-bottom:14px;text-transform:uppercase;}
+  .step p{font-size:13px;color:var(--grey);margin-top:8px;max-width:26ch;}
+  .step h3{font-size:15px;font-weight:600;}
+  .cta{display:inline-block;margin-top:56px;border:1px solid var(--ink);padding:16px 34px;font-size:13px;letter-spacing:.05em;text-transform:uppercase;transition:background .25s,color .25s;}
+  .cta:hover{background:var(--ink);color:var(--paper);}
+
+  /* price */
+  .price{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+  .pricetable{width:100%;border-collapse:collapse;font-size:14px;}
+  .pricetable th{text-align:left;font-weight:600;padding:12px 0;width:36%;}
+  .pricetable td{padding:12px 0;color:var(--grey);}
+  .pricetable td:last-child{text-align:right;color:var(--ink);font-weight:600;}
+  .pricetable tr{border-bottom:1px solid var(--line);}
+  .pricetable tr.gap th{padding-top:32px;}
+  .pricetable tr.gap td{padding-top:32px;}
+  .price .big{font-family:var(--display);font-weight:900;font-size:7vw;line-height:.95;letter-spacing:-.03em;}
+  .price p{max-width:44ch;color:var(--grey);font-size:13px;}
+
+  footer{padding:80px 28px 40px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;}
+  footer .mail{font-size:26px;font-weight:600;display:inline-block;margin-bottom:10px;}
+  footer .mail:hover{text-decoration:underline;text-underline-offset:6px;}
+
+  @media(max-width:900px){
+    nav{gap:18px;font-size:12px;}
+    .hero-photo{left:8%;width:84vw;top:200px;}
+    .hero .cap.left-note{display:none;}
+    .hero-word{font-size:26vw;}
+    .grid{grid-template-columns:1fr 1fr;gap:16px;}
+    .c1,.c2,.c3,.c4{grid-column:auto;margin-top:0;}
+    .flow{grid-template-columns:1fr 1fr;}
+    .price{grid-template-columns:1fr;}
+    .price .big{font-size:15vw;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="#">КОНВЕРТ ИЗ ПЕТЕРБУРГА</a>
+  <span class="time">Санкт-Петербург</span>
+  <nav>
+    <a href="#catalog">Каталог</a>
+    <a href="#flow">Печать</a>
+    <a href="#price">Цены</a>
+    <a href="#contact">Контакт</a>
+  </nav>
+</header>
+
+<section class="hero" style="border-top:none;">
+  <p class="manifesto">Кастомная бумажная продукция для бизнеса, который хочет выглядеть по-особенному. Конверты, календари, гирлянды и сертификаты — с вашим логотипом.</p>
+
+  <p class="cap left-note">бумага 120–300 г/м² · офсет и шелкография · тиражи от 50 шт</p>
+
+  <div class="hero-photo">
+    <img src="bumaga-hero.jpg" alt="Макро текстуры бумаги">
+    <span class="tag cap"><b>КОНВЕРТ C65</b> · КРАФТ · ШЕЛКОГРАФИЯ В ОДИН ЦВЕТ</span>
+  </div>
+
+  <div class="hero-word" aria-hidden="true">конверт</div>
+</section>
+
+<section id="catalog">
+  <div class="sec-head">
+    <h2>Каталог</h2>
+    <span class="cap">4 категории · все фото — реальная продукция</span>
+  </div>
+  <div class="grid">
+    <a class="card c1" href="#"><div class="ph"></div><div class="meta"><span>Конверты</span><span>DL · C65 · E65</span></div></a>
+    <a class="card c2" href="#"><div class="ph"></div><div class="meta"><span>Гирлянды</span><span>бумага · кастомная печать</span></div></a>
+    <a class="card c3" href="#"><div class="ph"></div><div class="meta"><span>Календари</span><span>настольные · перекидные</span></div></a>
+    <a class="card c4" href="#"><div class="ph"></div><div class="meta"><span>Сертификаты</span><span>подарочные · с конвертом</span></div></a>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="sec-head">
+    <h2>Печать вашего логотипа</h2>
+    <span class="cap">без конструкторов · ответ в течение дня</span>
+  </div>
+  <div class="flow">
+    <div class="step"><span class="n">шаг 1</span><h3>Выберите продукт</h3><p>Конверт, календарь, гирлянда или сертификат.</p></div>
+    <div class="step"><span class="n">шаг 2</span><h3>Загрузите логотип</h3><p>PDF, AI или PNG — подготовим макет сами.</p></div>
+    <div class="step"><span class="n">шаг 3</span><h3>Бумага и цвет</h3><p>Свотчи реальных материалов, без рендеров.</p></div>
+    <div class="step"><span class="n">шаг 4</span><h3>Отправьте запрос</h3><p>Без аккаунта. Расчёт и сроки — в WhatsApp.</p></div>
+  </div>
+  <a class="cta" href="https://api.whatsapp.com/send?phone=79811442939" target="_blank" rel="noopener">Отправить запрос</a>
+</section>
+
+<section id="price">
+  <div class="sec-head">
+    <h2>Цены</h2>
+    <span class="cap">популярные размеры · бумага кейколор 120 г/м²</span>
+  </div>
+  <div class="price">
+    <div>
+      <div class="big">от 30 ₽<br>/ конверт</div>
+    </div>
+    <div>
+      <table class="pricetable">
+        <tr><th>16 × 11 см</th><td>1–100 шт</td><td>50 ₽/шт</td></tr>
+        <tr><th></th><td>101–1000 шт</td><td>40 ₽/шт</td></tr>
+        <tr class="gap"><th>10,5 × 7,5 см</th><td>1–100 шт</td><td>40 ₽/шт</td></tr>
+        <tr><th></th><td>100–1000 шт</td><td>30 ₽/шт</td></tr>
+      </table>
+      <p style="margin-top:28px;">Остальные размеры и более плотные бумаги считаем индивидуально — <a href="https://api.whatsapp.com/send?phone=79811442939" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px;color:var(--ink);">напишите в WhatsApp</a>.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div>
+    <span class="cap">Профессора Попова, 4 · Санкт-Петербург · производство и печать</span><br><br>
+    <a class="mail" href="https://api.whatsapp.com/send?phone=79811442939" target="_blank" rel="noopener">WhatsApp&nbsp;→</a><br>
+    <a class="mail" href="https://www.instagram.com/konvert_iz_peterburga/" target="_blank" rel="noopener">Instagram&nbsp;→</a>
+  </div>
+  <span class="cap">© 2026 Конверт из Петербурга</span>
+</footer>
+
+</body>
+</html>
